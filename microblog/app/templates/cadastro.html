@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Novo Cadastro - Microblog{% endblock %}
+
+{% block content %}
+<div class="auth-card">
+    <h2>Crie sua Conta</h2>
+    <p class="auth-subtitle">Junte-se à comunidade do Microblog</p>
+
+    <form action="{{ url_for('cadastro') }}" method="POST" class="form-standard">
+        <div class="form-group">
+            <label for="username">Nome de Usuário *</label>
+            <input type="text" id="username" name="username" placeholder="Escolha um @identificador" required autofocus>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Senha de Acesso *</label>
+            <input type="password" id="password" name="password" placeholder="Defina uma senha" required>
+        </div>
+
+        
+        <div class="form-group">
+            <label for="foto">URL da Foto de Perfil (Opcional)</label>
+            <input type="url" id="foto" name="foto" placeholder="https://exemplo.com/sua-foto.jpg">
+            <small class="form-hint">Insira o link direto de uma imagem na web.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="bio">Biografia / Sobre Você (Opcional)</label>
+            <textarea id="bio" name="bio" rows="3" placeholder="Conte brevemente um pouco sobre seus interesses..."></textarea>
+        </div>
+
+        <div class="form-check">
+            <input type="checkbox" id="remember" name="remember" checked>
+            <label for="remember">Manter conectado após o cadastro</label>
+        </div>
+
+        <button type="submit" class="btn btn-success">Efetivar Cadastro</button>
+    </form>
+
+    <div class="auth-switch">
+        <p>Já possui uma conta ativa? <a href="{{ url_for('login') }}">Fazer login</a>.</p>
+    </div>
+</div>
+{% endblock %}

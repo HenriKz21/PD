@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Nova Publicação - Microblog{% endblock %}
+
+{% block content %}
+<div class="post-editor-card">
+    <h2>O que você está pensando hoje?</h2>
+    <p class="editor-subtitle">Escreva sua mensagem para compartilhar na timeline.</p>
+
+    <form action="{{ url_for('post') }}" method="POST" class="form-standard">
+        <div class="form-group">
+            <label for="body">Mensagem do Post</label>
+            <textarea id="body" name="body" rows="4" placeholder="Escreva aqui seu post..." required autofocus></textarea>
+        </div>
+
+        <div class="editor-actions">
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Publicar Agora</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

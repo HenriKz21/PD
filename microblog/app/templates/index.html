@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Feed Principal - Microblog{% endblock %}
+
+{% block content %}
+
+{% if user and user.is_authenticated %}
+    <section class="profile-card" aria-label="Perfil do Usuário Autenticado">
+        <div class="profile-header">
+            {% if user.foto %}
+                <img src="{{ user.foto }}" alt="Foto de perfil de {{ user.username }}" class="profile-avatar">
+            {% else %}
+                <div class="avatar-placeholder" aria-hidden="true">
+                    {{ user.username[:2].upper() }}
+                </div>
+            {% endif %}
+
+            <div class="profile-details">
+                <h1 class="profile-username">@{{ user.username }}</h1>
+                {% if user.bio %}
+                    <p class="profile-bio">{{ user.bio }}</p>
+                {% else %}
+                    <p class="profile-bio-empty"><em>Nenhuma biografia informada ainda.</em></p>
+                {% endif %}
+            </div>
+        </div>
+
+        
+        <div class="profile-actions">
+            <a href="{{ url_for('post') }}" class="btn btn-primary btn-cta">
+                ✏️ Escrever post
+            </a>
+        </div>
+    </section>
+
+    
+    <section class="timeline-section" aria-label="Feed de Publicações">
+        <h2 class="timeline-title">Últimas Publicações na Linha do Tempo</h2>
+
+        {% if posts and posts|length > 0 %}
+            <div class="posts-feed">
+                {% for p in posts %}
+                    <article class="post-card">
+                        <header class="post-header">
+                            {% if p.author.foto %}
+                                <img src="{{ p.author.foto }}" alt="Avatar de {{ p.author.username }}" class="post-avatar">
+                            {% else %}
+                                <div class="post-avatar-placeholder" aria-hidden="true">
+                                    {{ p.author.username[:2].upper() }}
+                                </div>
+                            {% endif %}
+                            
+                            <div class="post-meta">
+                                
+                                <strong class="post-author-name">@{{ p.author.username }}</strong>
+                                <time class="post-time" datetime="{{ p.timestamp }}">
+                                    {{ p.timestamp.strftime('%d/%m/%Y às %H:%M') }}
+                                </time>
+                            </div>
+                        </header>
+
+                        <div class="post-body">
+                            <p>{{ p.body }}</p>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-feed-card">
+                <p>Nenhuma publicação encontrada no momento.</p>
+                <p>Seja a primeira pessoa a compartilhar algo!</p>
+                <a href="{{ url_for('post') }}" class="btn btn-secondary">Publicar Agora</a>
+            </div>
+        {% endif %}
+    </section>
+
+{% else %}
+    
+    <section class="welcome-hero">
+        <h1>Bem-vindo(a) ao Microblog!</h1>
+        <p>Uma rede simples, rápida e direta para compartilhar suas ideias com o mundo.</p>
+        <div class="hero-buttons">
+            <a href="{{ url_for('login') }}" class="btn btn-primary">Fazer Login</a>
+            <a href="{{ url_for('cadastro') }}" class="btn btn-outline">Criar Nova Conta</a>
+        </div>
+    </section>
+{% endif %}
+
+{% endblock %}
