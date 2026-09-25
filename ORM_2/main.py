@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.ext.automap import automap_base
 
 
-engine = create_engine("sqlite:///ORM_2/chinook.db", echo=False)
+engine = create_engine("sqlite:///chinook.db", echo=False)
 
 
 metadata = MetaData()
