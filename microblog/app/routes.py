@@ -13,10 +13,6 @@ from app import alquimias
 
 @app.route('/')
 def index():
-    """
-    Página inicial do Microblog.
-    Se o usuário estiver autenticado, carrega a timeline com os 5 posts mais recentes.
-    """
     posts = []
     if current_user.is_authenticated:
         posts = alquimias.get_timeline(limit=5)
@@ -31,10 +27,6 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    """
-    Gerencia o formulário de login.
-    Redireciona para o feed se o usuário já estiver conectado.
-    """
     if current_user.is_authenticated:
         return redirect(url_for('index'))
 
@@ -64,10 +56,6 @@ def login():
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
-    """
-    Gerencia a tela e o processamento do cadastro de novos usuários.
-    Coleta dados básicos (username, password) e extras (foto, bio).
-    """
     if current_user.is_authenticated:
         return redirect(url_for('index'))
 
@@ -108,9 +96,6 @@ def cadastro():
 @app.route('/logout')
 @login_required
 def logout():
-    """
-    Encerra a sessão do usuário atual e o redireciona para a tela de login.
-    """
     logout_user()
     flash('Você saiu da sua conta.', 'info')
     return redirect(url_for('login'))
@@ -120,10 +105,6 @@ def logout():
 @app.route('/post', methods=['GET', 'POST'])
 @login_required
 def post():
-    """
-    Exibe o formulário de postagem (GET) e processa a criação de um novo post (POST).
-    Protegido por @login_required: apenas usuários autenticados podem postar.
-    """
     if request.method == 'POST':
         body = request.form.get('body', '').strip()
 

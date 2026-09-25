@@ -57,8 +57,4 @@ class Post(db.Model):
 
 @login.user_loader
 def load_user(id: str):
-    """
-    Função utilizada internamente pelo Flask-Login para recarregar
-    o objeto de usuário a partir do ID salvo no cookie de sessão.
-    """
     return db.session.get(User, int(id))
